@@ -12,19 +12,20 @@ const Hero = () => {
           alt="Hero background"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90" />
+        {/* <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} /> */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90 opacity-50" />
       </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight">
             IT'S ALL ABOUT{" "}
             <span className="block mt-2">WHAT YOU CAN</span>
-            <span className="block mt-2 text-secondary-foreground">ACHIEVE</span>
+            <span className="block mt-2 text-primary">ACHIEVE</span>
           </h1>
           
-          <p className="text-xl sm:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
+          <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto">
             Empower yourself to make the changes you need to make
           </p>
 

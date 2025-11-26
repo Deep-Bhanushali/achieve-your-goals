@@ -8,37 +8,37 @@ const Services = () => {
       icon: FileText,
       title: "Tax Return Filing",
       description: "Expert tax filing services to maximize your returns and ensure compliance with all regulations.",
-      color: "from-primary to-primary/80",
+      color: "bg-primary",
     },
     {
       icon: TrendingUp,
       title: "Retirement Planning",
       description: "Secure your future with comprehensive retirement and home loan planning strategies.",
-      color: "from-secondary to-secondary/80",
+      color: "bg-secondary",
     },
     {
       icon: Calculator,
       title: "Accounting & Virtual CFO",
       description: "Professional accounting services and virtual CFO support for your business growth.",
-      color: "from-primary to-primary/80",
+      color: "bg-primary",
     },
     {
       icon: DollarSign,
       title: "Loans & Financing",
       description: "Access to various loan options and financing solutions tailored to your needs.",
-      color: "from-secondary to-secondary/80",
+      color: "bg-secondary",
     },
     {
       icon: Building,
       title: "Business Consulting",
       description: "Strategic business consulting to help you make informed financial decisions.",
-      color: "from-primary to-primary/80",
+      color: "bg-primary",
     },
     {
       icon: Users,
       title: "Investment Planning",
       description: "Smart investment strategies to grow your wealth and achieve financial goals.",
-      color: "from-secondary to-secondary/80",
+      color: "bg-secondary",
     },
   ];
 
@@ -62,7 +62,7 @@ const Services = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardHeader>
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-16 h-16 rounded-2xl ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <service.icon className="w-8 h-8 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-xl font-bold">{service.title}</CardTitle>

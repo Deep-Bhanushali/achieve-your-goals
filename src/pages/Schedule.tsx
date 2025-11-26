@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar, Clock, Mail, Phone, User } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { contactApi } from "@/lib/api";
 
 const Schedule = () => {
   const [formData, setFormData] = useState({
@@ -21,18 +22,74 @@ const Schedule = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Appointment request submitted! We'll contact you soon.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      date: "",
-      time: "",
-      message: "",
-    });
+    
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.date) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Split name into first and last name
+      const nameParts = formData.name.trim().split(/\s+/);
+      const firstName = nameParts[0] || "";
+      let lastName = nameParts.slice(1).join(" ") || "";
+      
+      // If no last name provided, use a placeholder
+      if (!lastName) {
+        lastName = firstName;
+      }
+
+      // Clean phone number - remove all non-digits
+      const cleanPhone = formData.phone.replace(/\D/g, "");
+      
+      if (cleanPhone.length < 10 || cleanPhone.length > 15) {
+        toast.error("Please enter a valid phone number (10-15 digits)");
+        setIsLoading(false);
+        return;
+      }
+
+      // Send to backend API
+      const response = await contactApi.submitForm({
+        firstName,
+        lastName,
+        email: formData.email,
+        phone: cleanPhone,
+        message: `Appointment Request\n\nService: ${formData.service}\nDate: ${formData.date}\nTime: ${formData.time}\n\nAdditional Message:\n${formData.message}`,
+        subject: `Appointment Request - ${formData.service}`,
+        serviceType: "Other",
+      });
+
+      if (response.data) {
+        toast.success(response.message || "Appointment request submitted! We'll contact you soon.");
+        console.log("✓ Appointment sent to backend:", response);
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          date: "",
+          time: "",
+          message: "",
+        });
+      } else {
+        toast.error(response.message || "Failed to submit appointment");
+        console.error("✗ Error response:", response);
+      }
+    } catch (error) {
+      console.error("✗ Appointment submission error:", error);
+      toast.error("An error occurred while submitting your appointment");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -244,8 +301,8 @@ const Schedule = () => {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary" size="lg">
-                    Schedule Appointment
+                  <Button type="submit" className="w-full bg-primary text-primary-foreground" size="lg" disabled={isLoading}>
+                    {isLoading ? "Submitting..." : "Schedule Appointment"}
                   </Button>
                 </form>
               </CardContent>

@@ -22,7 +22,7 @@ const About = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-primary to-secondary rounded-3xl -z-10" />
+            <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-muted rounded-3xl -z-10" />
           </div>
 
           {/* Content Side */}
@@ -47,10 +47,7 @@ const About = () => {
             </div>
 
             <div className="pt-4">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 font-semibold px-8"
-              >
+              <Button size="lg" className="bg-primary text-primary-foreground hover:opacity-95 font-semibold px-8">
                 SCHEDULE A CONSULTATION
               </Button>
             </div>

@@ -158,7 +158,7 @@ const SignUp = () => {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-primary to-secondary" 
+                    className="w-full bg-primary text-primary-foreground" 
                     size="lg"
                   >
                     Create Account

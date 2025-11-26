@@ -79,7 +79,7 @@ const OneOnOne = () => {
                 <div className="text-center">
                   <h3 className="text-2xl font-bold mb-2">Single Session</h3>
                   <div className="mb-4">
-                    <span className="text-5xl font-bold text-primary">₹2,999</span>
+                    <span className="text-5xl font-bold text-primary">₹4,999</span>
                     <span className="text-muted-foreground">/session</span>
                   </div>
                   <p className="text-muted-foreground">60-minute consultation</p>

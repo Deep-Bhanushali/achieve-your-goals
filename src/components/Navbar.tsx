@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-primary">
               Mango Admi
             </span>
           </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Link to="/sign-up">
-              <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+              <Button className="bg-primary text-primary-foreground hover:opacity-95">
                 Sign Up
               </Button>
             </Link>
@@ -87,8 +87,8 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link to="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 w-full">
+                <Link to="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button className="bg-primary text-primary-foreground hover:opacity-95 w-full">
                   Sign Up
                 </Button>
               </Link>

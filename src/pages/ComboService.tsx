@@ -10,7 +10,7 @@ const ComboService = () => {
     {
       name: "Individual + Family Combo",
       price: "₹15,999",
-      period: "/year",
+      period: "/month",
       description: "Complete financial planning for you and your family",
       features: [
         "Tax filing for 2 individuals",
@@ -25,7 +25,7 @@ const ComboService = () => {
     {
       name: "Business Starter Combo",
       price: "₹29,999",
-      period: "/year",
+      period: "/month",
       description: "Perfect for startups and small businesses",
       features: [
         "Company registration",
@@ -40,7 +40,7 @@ const ComboService = () => {
     {
       name: "Complete Care Combo",
       price: "₹49,999",
-      period: "/year",
+      period: "/month",
       description: "All-inclusive package for business owners",
       features: [
         "Business accounting & compliance",
