@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,14 +15,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Individual", href: "/individual" },
-    { name: "Business", href: "/business" },
-    { name: "Combo Service", href: "/combo-service" },
-    { name: "Investments", href: "/investments" },
-    { name: "1-1", href: "/1-1" },
-    { name: "Prices & Plans", href: "/prices-plans" },
-    { name: "Schedule", href: "/schedule" },
+    { name: "Home", href: "#home" },
+    { name: "Services", href: "#services" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
@@ -44,21 +39,19 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.name}
-                to={link.href}
+                href={link.href}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
-            <Link to="/sign-up">
-              <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                Sign Up
-              </Button>
-            </Link>
+            <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+              Get Started
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -78,20 +71,18 @@ const Navbar = () => {
           <div className="md:hidden pb-4 animate-slide-up">
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.name}
-                  to={link.href}
+                  href={link.href}
                   className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
-              <Link to="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 w-full">
-                  Sign Up
-                </Button>
-              </Link>
+              <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 w-full">
+                Get Started
+              </Button>
             </div>
           </div>
         )}
