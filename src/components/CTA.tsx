@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
@@ -11,12 +12,14 @@ const CTA = () => {
           <p className="text-xl text-muted-foreground">
             Take the first step towards your financial freedom today
           </p>
-          <Button
-            size="lg"
-            className="bg-background text-primary hover:bg-background/90 font-semibold px-12 py-6 text-lg"
-          >
-            MAKE IT HAPPEN
-          </Button>
+          <Link to="/schedule#contact-form">
+            <Button
+              size="lg"
+              className="bg-background text-primary hover:bg-background/90 font-semibold px-12 py-6 text-lg"
+            >
+              MAKE IT HAPPEN
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
