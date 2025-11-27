@@ -58,7 +58,7 @@ const Investments = () => {
             alt="Investment planning"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

@@ -69,7 +69,7 @@ const PricesPlans = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-center justify-center bg-gradient-to-r from-primary to-secondary pt-20">
+      <section className="relative min-h-[50vh] flex items-center justify-center bg-gradient-to-r from-primary to-secondary pt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto space-y-4 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground">

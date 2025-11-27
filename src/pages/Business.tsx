@@ -58,7 +58,7 @@ const Business = () => {
             alt="Business services"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 to-primary/85" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 to-secondary/85" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -108,7 +108,7 @@ const Business = () => {
 
           <div className="text-center mt-12">
             <Link to="/schedule">
-              <Button size="lg" className="bg-gradient-to-r from-secondary to-primary hover:opacity-90">
+              <Button size="lg" className="bg-primary hover:opacity-90">
                 Schedule a Consultation
               </Button>
             </Link>

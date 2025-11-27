@@ -54,11 +54,11 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Link to="/sign-up">
+            {/* <Link to="/sign-up">
               <Button className="bg-primary text-primary-foreground hover:opacity-95">
                 Sign Up
               </Button>
-            </Link>
+            </Link> */}
           </div>
 
           {/* Mobile menu button */}
@@ -87,11 +87,11 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-                <Link to="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
+                {/* <Link to="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button className="bg-primary text-primary-foreground hover:opacity-95 w-full">
                   Sign Up
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
         )}

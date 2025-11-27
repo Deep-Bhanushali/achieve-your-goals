@@ -116,7 +116,7 @@ const Schedule = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-center justify-center bg-gradient-to-r from-secondary to-primary pt-20">
+      <section className="relative min-h-[50vh] flex items-center justify-center bg-gradient-to-r from-primary to-secondary pt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto space-y-4 animate-fade-in">
             <Calendar className="w-16 h-16 text-primary-foreground mx-auto" />

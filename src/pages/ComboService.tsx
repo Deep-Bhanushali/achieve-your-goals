@@ -131,7 +131,7 @@ const ComboService = () => {
                   We can create a personalized combo package tailored to your specific needs and budget.
                 </p>
                 <Link to="/schedule">
-                  <Button size="lg" variant="outline">
+                  <Button size="lg" variant="outline" className="hover:bg-primary">
                     Contact Us for Custom Solutions
                   </Button>
                 </Link>

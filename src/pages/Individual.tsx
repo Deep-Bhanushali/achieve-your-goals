@@ -108,7 +108,7 @@ const Individual = () => {
 
           <div className="text-center mt-12">
             <Link to="/schedule">
-              <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+              <Button size="lg" className="bg-primary hover:opacity-90">
                 Schedule a Consultation
               </Button>
             </Link>
