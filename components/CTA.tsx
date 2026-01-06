@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const CTA = () => {
   return (
@@ -12,7 +12,7 @@ const CTA = () => {
           <p className="text-xl text-muted-foreground">
             Take the first step towards your financial freedom today
           </p>
-          <Link to="/schedule#contact-form">
+          <Link href="/schedule#contact-form">
             <Button
               size="lg"
               className="bg-background text-primary hover:bg-background/90 font-semibold px-12 py-6 text-lg"
