@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import ContactForm from "../models/ContactForm";
-import { sendContactFormToAdmin, sendResponseToClient } from "../services/emailService";
+import { ContactForm } from "../models/ContactForm.js";
+import { sendContactFormToAdmin, sendResponseToClient } from "../services/emailService.js";
 
 export const submitContactForm = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -12,7 +12,7 @@ export const submitContactForm = async (req: Request, res: Response, next: NextF
     }
 
     // Create contact form entry
-    const contactForm = new ContactForm({
+    const contactForm = await ContactForm.create({
       firstName,
       lastName,
       email,
@@ -21,8 +21,6 @@ export const submitContactForm = async (req: Request, res: Response, next: NextF
       subject,
       serviceType,
     });
-
-    await contactForm.save();
 
     // Send email to admin (owner will reply manually)
     try {
@@ -52,7 +50,7 @@ export const submitContactForm = async (req: Request, res: Response, next: NextF
 
 export const getContactForms = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const forms = await ContactForm.find().sort({ createdAt: -1 });
+    const forms = await ContactForm.findAll();
     res.status(200).json(forms);
   } catch (error) {
     next(error);
@@ -62,7 +60,7 @@ export const getContactForms = async (req: Request, res: Response, next: NextFun
 export const getContactForm = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const form = await ContactForm.findById(id);
+    const form = await ContactForm.findById(Number(id));
 
     if (!form) {
       return res.status(404).json({ message: "Contact form not found" });
@@ -77,9 +75,9 @@ export const getContactForm = async (req: Request, res: Response, next: NextFunc
 export const deleteContactForm = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const form = await ContactForm.findByIdAndDelete(id);
+    const deleted = await ContactForm.delete(Number(id));
 
-    if (!form) {
+    if (!deleted) {
       return res.status(404).json({ message: "Contact form not found" });
     }
 

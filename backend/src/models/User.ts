@@ -1,79 +1,117 @@
-import mongoose, { Schema, Document } from "mongoose";
+import { pool } from "../config/database.js";
 import bcrypt from "bcryptjs";
 
-export interface IUser extends Document {
+export interface IUser {
+  id?: number;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   password: string;
   agreeToTerms: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  comparePassword(password: string): Promise<boolean>;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-const userSchema = new Schema<IUser>(
-  {
-    firstName: {
-      type: String,
-      required: [true, "First name is required"],
-      trim: true,
-      minlength: [2, "First name must be at least 2 characters"],
-    },
-    lastName: {
-      type: String,
-      required: [true, "Last name is required"],
-      trim: true,
-      minlength: [2, "Last name must be at least 2 characters"],
-    },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      lowercase: true,
-      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please provide a valid email"],
-    },
-    phone: {
-      type: String,
-      required: [true, "Phone number is required"],
-      match: [/^\d{10,15}$/, "Please provide a valid phone number"],
-    },
-    password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters"],
-      select: false,
-    },
-    agreeToTerms: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+export class User {
+  // Create a new user
+  static async create(userData: Omit<IUser, 'id' | 'createdAt' | 'updatedAt'>): Promise<IUser> {
+    const { firstName, lastName, email, phone, password, agreeToTerms } = userData;
 
-// Hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    return next();
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = `
+      INSERT INTO users (firstName, lastName, email, phone, password, agreeToTerms)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING *
+    `;
+
+    const values = [firstName, lastName, email, phone, hashedPassword, agreeToTerms];
+    const result = await pool.query(query, values);
+
+    return result.rows[0];
   }
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error as Error);
+  // Find user by email
+  static async findByEmail(email: string): Promise<IUser | null> {
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const result = await pool.query(query, [email]);
+
+    return result.rows[0] || null;
   }
-});
 
-// Method to compare password
-userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
-  return await bcrypt.compare(password, this.password);
-};
+  // Find user by ID
+  static async findById(id: number): Promise<IUser | null> {
+    const query = 'SELECT * FROM users WHERE id = $1';
+    const result = await pool.query(query, [id]);
 
-export default mongoose.model<IUser>("User", userSchema);
+    return result.rows[0] || null;
+  }
+
+  // Get all users
+  static async findAll(): Promise<IUser[]> {
+    const query = 'SELECT * FROM users ORDER BY createdAt DESC';
+    const result = await pool.query(query);
+
+    return result.rows;
+  }
+
+  // Update user
+  static async updateUser(
+    id: number,
+    updates: Partial<Pick<IUser, 'firstName' | 'lastName' | 'phone'>>
+  ): Promise<IUser | null> {
+    const { firstName, lastName, phone } = updates;
+    const values: (string | number)[] = [];
+    const setClauses: string[] = [];
+
+    if (firstName) {
+      setClauses.push(`firstName = $${values.length + 1}`);
+      values.push(firstName);
+    }
+
+    if (lastName) {
+      setClauses.push(`lastName = $${values.length + 1}`);
+      values.push(lastName);
+    }
+
+    if (phone) {
+      setClauses.push(`phone = $${values.length + 1}`);
+      values.push(phone);
+    }
+
+    if (setClauses.length === 0) {
+      return null;
+    }
+
+    setClauses.push(`updatedAt = CURRENT_TIMESTAMP`);
+    values.push(id);
+
+    const query = `
+      UPDATE users
+      SET ${setClauses.join(', ')}
+      WHERE id = $${values.length}
+      RETURNING *
+    `;
+
+    const result = await pool.query(query, values);
+
+    return result.rows[0] || null;
+  }
+
+  // Delete user
+  static async deleteUser(id: number): Promise<boolean> {
+    const query = 'DELETE FROM users WHERE id = $1';
+    const result = await pool.query(query, [id]);
+
+    return (result.rowCount ?? 0) > 0;
+  }
+
+  // Compare password
+  static async comparePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+}
+
+export default User;

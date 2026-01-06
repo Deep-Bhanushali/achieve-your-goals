@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import User, { IUser } from "../models/User";
-import { sendResponseToClient, sendContactFormToAdmin } from "../services/emailService";
+import { User } from "../models/User.js";
+import { sendResponseToClient, sendContactFormToAdmin } from "../services/emailService.js";
 
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -20,13 +20,13 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
     }
 
     // Check if user exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findByEmail(email);
     if (existingUser) {
       return res.status(409).json({ message: "Email already registered" });
     }
 
     // Create new user
-    const user = new User({
+    const user = await User.create({
       firstName,
       lastName,
       email,
@@ -34,8 +34,6 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
       password,
       agreeToTerms,
     });
-
-    await user.save();
 
     console.log("✓ New user registered and forwarded to admin for manual follow-up");
     console.log(`   Owner will manually review and reply to: ${email}`);
@@ -66,7 +64,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
     res.status(201).json({
       message: "Account created successfully! We have received your information and will get back to you soon.",
       user: {
-        id: user._id,
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -82,12 +80,15 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
   try {
     const { id } = req.params;
 
-    const user = await User.findById(id);
+    const user = await User.findById(Number(id));
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json(user);
+    // Don't send password in response
+    const { password, ...userWithoutPassword } = user;
+
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
     next(error);
   }
@@ -95,8 +96,15 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await User.find().select("-password");
-    res.status(200).json(users);
+    const users = await User.findAll();
+
+    // Remove passwords from response
+    const usersWithoutPasswords = users.map(user => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+
+    res.status(200).json(usersWithoutPasswords);
   } catch (error) {
     next(error);
   }
@@ -107,11 +115,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     const { id } = req.params;
     const { firstName, lastName, phone } = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      id,
-      { firstName, lastName, phone },
-      { new: true, runValidators: true }
-    );
+    const user = await User.updateUser(Number(id), { firstName, lastName, phone });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -130,8 +134,8 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
   try {
     const { id } = req.params;
 
-    const user = await User.findByIdAndDelete(id);
-    if (!user) {
+    const deleted = await User.deleteUser(Number(id));
+    if (!deleted) {
       return res.status(404).json({ message: "User not found" });
     }
 
