@@ -27,6 +27,16 @@ export interface EmailOptions {
   html: string;
 }
 
+export interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
+  subject?: string | null;
+  serviceType?: string;
+}
+
 export const sendEmail = async (options: EmailOptions) => {
   try {
     const mailOptions = {
@@ -57,7 +67,7 @@ export const sendEmail = async (options: EmailOptions) => {
 };
 
 export const sendContactFormToAdmin = async (
-  contactData: any
+  contactData: ContactFormData
 ) => {
   const adminEmail = process.env.ADMIN_EMAIL || process.env.OWNER_EMAIL;
 
