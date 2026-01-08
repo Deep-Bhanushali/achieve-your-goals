@@ -40,6 +40,9 @@ const Footer = () => {
                 <Link href="/business" className="hover:text-primary transition-colors">Business Services</Link>
               </li>
               <li>
+                <Link href="/tax-calculator" className="hover:text-primary transition-colors">Tax Calculator</Link>
+              </li>
+              <li>
                 <Link href="/investments" className="hover:text-primary transition-colors">Investments</Link>
               </li>
               <li>

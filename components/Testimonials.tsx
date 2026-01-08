@@ -4,22 +4,32 @@ import { Quote, Star } from "lucide-react"
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Rajesh Kumar",
-      role: "Business Owner",
-      content: "Mango Admi has been instrumental in managing our business finances. Their tax filing and accounting services are top-notch. Highly recommended!",
+      name: "Lalit Raghuwanshi",
+      role: "Verified Google Review",
+      content: "Exceptional Financial Consultant! From the moment we began discussing my financial goals, they showed a remarkable level of expertise and understanding.",
       rating: 5,
+      verified: true,
     },
     {
-      name: "Priya Sharma",
-      role: "IT Professional",
-      content: "Excellent investment planning advice! They helped me create a diversified portfolio that matches my risk appetite and financial goals.",
+      name: "Rishab Sharma",
+      role: "Verified Google Review",
+      content: "Loved the services. He makes sure the job is done within the best amount of time with an immaculate quality as well. Totally recommended!",
       rating: 5,
+      verified: true,
     },
     {
-      name: "Amit Patel",
-      role: "Doctor",
-      content: "The retirement planning service was exceptional. They explained everything clearly and helped me secure my financial future.",
+      name: "Kreethi Menarai",
+      role: "Verified Google Review",
+      content: "Thank you MangoAdmi for your help and flawless service in filing ITR (Income tax Return Filing) on time. One of the best investment consultant i have worked with!! Keep doing your amazing work",
       rating: 5,
+      verified: true,
+    },
+    {
+      name: "Neha Raghuwanshi",
+      role: "Verified Google Review",
+      content: "I highly recommend his services to anyone seeking a top-notch Chartered Accountant. His professionalism and expertise make him a true asset for anyone in need of financial guidance.",
+      rating: 5,
+      verified: true,
     },
   ]
 
@@ -38,7 +48,7 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
