@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { Quote, Star } from "lucide-react"
+import { Quote, Star, Sparkles } from "lucide-react"
 
 const Testimonials = () => {
   const testimonials = [
@@ -20,7 +20,7 @@ const Testimonials = () => {
     {
       name: "Kreethi Menarai",
       role: "Verified Google Review",
-      content: "Thank you MangoAdmi for your help and flawless service in filing ITR (Income tax Return Filing) on time. One of the best investment consultant i have worked with!! Keep doing your amazing work",
+      content: "Thank you MangoAdmi for your help and flawless service in filing ITR on time. One of the best investment consultants I have worked with! Keep doing your amazing work.",
       rating: 5,
       verified: true,
     },
@@ -34,17 +34,19 @@ const Testimonials = () => {
   ]
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-24 bg-gradient-to-b from-background via-slate-50/50 to-background dark:via-slate-900/40">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-            <Quote className="w-8 h-8 text-primary" />
+        <div className="text-center mb-16 animate-fade-in max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-gold/15 border border-brand-gold/30 text-brand-goldDark dark:text-brand-champagne text-xs font-semibold mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
+            <span>Client Experiences</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight mb-4">
             What Our Clients Say
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our satisfied clients have to say about our services.
+          <div className="w-16 h-1 bg-gradient-to-r from-brand-gold to-brand-champagne mx-auto rounded-full mb-4" />
+          <p className="text-muted-foreground text-base md:text-lg">
+            Hear from our satisfied clients about how we've helped simplify taxes and accelerate wealth.
           </p>
         </div>
 
@@ -52,36 +54,45 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
-              className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-slide-up"
+              className="relative overflow-hidden group border border-border/80 hover:border-brand-gold/60 hover:shadow-xl hover:shadow-brand-gold/10 transition-all duration-300 hover:-translate-y-1 animate-slide-up bg-card"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <CardContent className="p-6">
+              <CardContent className="p-8">
                 {/* Quote Icon */}
-                <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center opacity-50">
-                  <Quote className="w-6 h-6 text-primary" />
+                <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center">
+                  <Quote className="w-6 h-6 text-brand-gold" />
                 </div>
 
-                {/* Rating Stars */}
+                {/* Rating */}
                 <div className="flex gap-1 mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i < testimonial.rating
+                          ? "text-brand-gold fill-brand-gold"
+                          : "text-muted-foreground"
+                      }`}
+                    />
                   ))}
                 </div>
 
-                {/* Testimonial Content */}
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                {/* Content */}
+                <p className="text-foreground/90 text-base leading-relaxed mb-6 italic">
                   "{testimonial.content}"
                 </p>
 
-                {/* Author Info */}
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white font-bold text-lg">
-                    {testimonial.name.charAt(0)}
-                  </div>
+                {/* Author */}
+                <div className="flex items-center justify-between pt-4 border-t border-border/60">
                   <div>
-                    <p className="font-semibold text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    <h3 className="font-bold text-foreground text-base">{testimonial.name}</h3>
+                    <p className="text-sm text-brand-gold font-medium">{testimonial.role}</p>
                   </div>
+                  {testimonial.verified && (
+                    <span className="text-xs bg-brand-gold/15 text-brand-goldDark dark:text-brand-champagne font-semibold px-2.5 py-1 rounded-full border border-brand-gold/30">
+                      Verified
+                    </span>
+                  )}
                 </div>
               </CardContent>
             </Card>

@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Mango Admi - Achieve Your Goals",
   description: "Financial planning and investment advisory services",
+  icons: {
+    icon: "/mangoadmin-logo.png",
+  },
 }
 
 export default function RootLayout({

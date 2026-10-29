@@ -19,7 +19,6 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/" },
     { name: "Individual", href: "/individual" },
     { name: "Business", href: "/business" },
     { name: "Combo Service", href: "/combo-service" },
@@ -27,6 +26,7 @@ const Navbar = () => {
     { name: "Tax Calculator", href: "/tax-calculator" },
     { name: "1-1", href: "/1-1" },
     { name: "Prices & Plans", href: "/prices-plans" },
+    { name: "Reports", href: "/reports" },
     { name: "Schedule", href: "/schedule" },
   ];
 
@@ -42,11 +42,15 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center gap-2 group">
-              <Image src="/logo.jpeg" width={40} height={40} className="rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:shadow-lg transition-shadow" alt={""}>
-                
-              </Image>
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <Image
+                src="/mangoadmin-logo.png"
+                width={40}
+                height={40}
+                className="w-10 h-10 object-contain rounded-lg shadow-md group-hover:shadow-lg transition-shadow"
+                alt="Mango Admi Logo"
+              />
+              <span className="text-2xl font-bold text-foreground">
                 Mango Admi
               </span>
             </Link>
@@ -58,17 +62,12 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-foreground hover:text-primary px-4 py-2 rounded-lg hover:bg-primary/5 transition-all duration-200 font-medium text-sm relative group"
+                className="text-foreground hover:text-brand-gold px-3.5 py-2 rounded-lg hover:bg-brand-gold/10 transition-all duration-200 font-medium text-sm relative group"
               >
                 {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-200"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-gold to-brand-champagne group-hover:w-full transition-all duration-200"></span>
               </Link>
             ))}
-            {/* <Link to="/sign-up">
-              <Button className="bg-primary text-primary-foreground hover:opacity-95">
-                Sign Up
-              </Button>
-            </Link> */}
           </div>
 
           {/* Mobile menu button */}
@@ -86,22 +85,17 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div className="md:hidden pb-4 animate-slide-up">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-3 pt-2 border-t border-border/60">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                  className="text-foreground hover:text-brand-gold hover:bg-brand-gold/10 px-3 py-2 rounded-lg transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-                {/* <Link to="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="bg-primary text-primary-foreground hover:opacity-95 w-full">
-                  Sign Up
-                </Button>
-              </Link> */}
             </div>
           </div>
         )}
