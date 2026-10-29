@@ -13,7 +13,7 @@ const Hero = () => {
           className="w-full h-full object-cover"
         />
         {/* Charcoal & Gold Brand Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepCharcoal/95 via-brand-charcoal/90 to-brand-gold/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepCharcoal via-brand-charcoal/80 to-brand-gold/30 opacity-70" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,144,80,0.25),transparent_55%)]" />
       </div>
 
@@ -25,7 +25,7 @@ const Hero = () => {
             <span>Strategic Wealth & Advisory Partners</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]">
             IT'S ALL ABOUT{" "}
             <span className="block mt-2">WHAT YOU CAN</span>
             <span className="block mt-2 bg-gradient-to-r from-brand-gold via-brand-champagne to-brand-gold bg-clip-text text-transparent drop-shadow-sm">
@@ -33,7 +33,7 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-lg sm:text-2xl text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow">
+          <p className="text-lg sm:text-2xl text-slate-100 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Empower yourself to make the changes you need to reach complete financial independence.
           </p>
 
@@ -60,8 +60,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Decorative Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-10" />
     </section>
   );
 };
